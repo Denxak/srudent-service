@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,12 +34,12 @@ public class StudentController {
         return studentService.removeStudent(id);
     }
 
-    @PutMapping("/student/{id}")
+    @PatchMapping("/student/{id}")
     public StudentAddDto updateStudent(@PathVariable Long id, @RequestBody StudentUpdateDto studentUpdateDto) {
         return studentService.updateStudent(id, studentUpdateDto);
     }
 
-    @PutMapping("/score/student/{id}")
+    @PatchMapping("/score/student/{id}")
     public boolean addScore(@PathVariable Long id, @RequestBody ScoreDto scoreDto) {
         return studentService.addScore(id, scoreDto);
     }
@@ -48,9 +49,9 @@ public class StudentController {
         return studentService.findStudentByName(name);
     }
 
-    @PostMapping("/quantity/students")
-    public Long getStudentsQuantityByNames(@RequestBody Set<String> names) {
-        return studentService.getStudentsQuantityByNames(names);
+    @GetMapping("/quantity/students")
+    public Long getStudentsQuantityByNames(@RequestParam List<String> names) {
+        return studentService.getStudentsQuantityByNames(new HashSet<>(names));
     }
 
     @GetMapping("/students/exam/{exam}/minscore/{minScore}")
