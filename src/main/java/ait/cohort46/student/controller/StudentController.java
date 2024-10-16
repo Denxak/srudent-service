@@ -49,7 +49,7 @@ public class StudentController {
     }
 
     @PostMapping("/quantity/students")
-    public Integer getStudentsQuantityByNames(@RequestBody Set<String> names) {
+    public Long getStudentsQuantityByNames(@RequestBody Set<String> names) {
         return studentService.getStudentsQuantityByNames(names);
     }
 
