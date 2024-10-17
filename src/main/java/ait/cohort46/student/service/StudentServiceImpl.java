@@ -72,15 +72,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Long getStudentsQuantityByNames(Set<String> names) {
-        return StreamSupport.stream(studentRepository.findAll().spliterator(), false)
-                .filter(student -> names.contains(student.getName()))
-                .count();
+        return studentRepository.countAllByNameIn(names).count();
     }
 
     @Override
     public List<StudentDto> findStudentsByExamMinScore(String exam, Integer minScore) {
-        return StreamSupport.stream(studentRepository.findAll().spliterator(), false)
-                .filter(student -> student.getScores().containsKey(exam) && student.getScores().get(exam) >= minScore)
+        return studentRepository.findByExamMinScore(exam, minScore)
                 .map(student -> new StudentDto(student.getId(), student.getName(), student.getScores()))
                 .toList();
     }
