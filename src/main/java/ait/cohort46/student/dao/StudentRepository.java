@@ -8,10 +8,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public interface StudentRepository extends CrudRepository<Student, Long> {
-    Stream<Student> findByNameIgnoreCase(String name);
+    Stream<Student>  findByNameIgnoreCase(String name);
 
-    Stream<Student> countAllByNameIn(Set<String> name);
+    Stream<Student> getAllBy();
 
-    @Query("{ 'scores.?0' : { $gte: ?1 } }")
-    Stream<Student> findByExamMinScore(String exam, Integer minScore);
+    long countByNameInIgnoreCase(Set<String> names);
+
+    @Query("{'scores.?0': {'$gt': ?1}}")
+    Stream<Student> findByExamAndScoreGreaterThan(String exam, int score);
 }

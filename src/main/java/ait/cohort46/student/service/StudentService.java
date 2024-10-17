@@ -17,9 +17,9 @@ public interface StudentService {
 
     StudentAddDto updateStudent(Long id, StudentUpdateDto studentUpdateDto);
 
-    boolean addScore(Long id, ScoreDto scoreDto);
+    Boolean addScore(Long id, ScoreDto scoreDto);
 
-    List<StudentDto> findStudentByName(String name);
+    List<StudentDto> findStudentsByName(String name);
 
     Long getStudentsQuantityByNames(Set<String> names);
 
